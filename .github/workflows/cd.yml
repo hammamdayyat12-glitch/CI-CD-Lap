@@ -37,5 +37,15 @@ jobs:
           ls -l dist
           unzip -l dist/tasks-api-${{ inputs.version }}.zip
 
+      - name: Create tag and GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ inputs.version }}" \
+            "dist/tasks-api-${{ inputs.version }}.zip" \
+            --target "${{ github.sha }}" \
+            --title "Release v${{ inputs.version }}" \
+            --generate-notes
+
       - name: Print the version
-        run: echo "Releasing version ${{ inputs.version }}"
+        run: echo "Released version ${{ inputs.version }}"
