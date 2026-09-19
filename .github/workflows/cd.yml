@@ -2,10 +2,18 @@ name: CD
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Version number to release"
+        required: true
+        default: "1.0.0"
+        type: string
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Not implemented yet
-        run: echo "Implement the CD pipeline - see STUDENT-README.md (Part B)"
+      - name: Print the version
+        run: echo "Releasing version ${{ inputs.version }}"
