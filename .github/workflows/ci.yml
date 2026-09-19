@@ -16,3 +16,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npx jest tests/validate.test.js tests/tasksStore.test.js
+
+      - name: Run API tests
+        run: npx jest tests/api.test.js
+
+      - name: Run coverage (enforces thresholds)
+        run: npm run test:coverage
