@@ -29,5 +29,13 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Build the package
+        run: |
+          mkdir -p dist
+          zip -r dist/tasks-api-${{ inputs.version }}.zip src package.json README.md
+          echo "Created package:"
+          ls -l dist
+          unzip -l dist/tasks-api-${{ inputs.version }}.zip
+
       - name: Print the version
         run: echo "Releasing version ${{ inputs.version }}"
